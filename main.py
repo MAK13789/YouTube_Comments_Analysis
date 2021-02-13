@@ -1,11 +1,11 @@
+import pandas as pd
+import os
 import google.oauth2.credentials
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
-import os
 import pickle
-import pandas as pd
 CLIENT_SECRETS_FILE = "client_secret.json"
 SCOPES = ['https://www.googleapis.com/auth/youtube.force-ssl']
 API_SERVICE_NAME = 'youtube'
@@ -30,6 +30,7 @@ def get_authenticated_service():
             pickle.dump(credentials, token)
  
     return build(API_SERVICE_NAME, API_VERSION, credentials = credentials)
+
 '''
 if __name__ == '__main__':
     os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
@@ -105,6 +106,7 @@ def data_one_query(query):
         'Likes': like_count_pop,
         }
     output_df = pd.DataFrame(output_dict, columns = output_dict.keys())
+    return output_df
 
 
 df = data_one_query('athletics')
