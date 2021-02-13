@@ -71,7 +71,7 @@ def data_one_query(query):
         response = service.commentThreads().list(
                     part = 'snippet',
                     videoId = video,
-                    maxResults = 100, # Only take top 100 comments...
+                    maxResults = 20, # Only take top 20 comments...
                     order = 'relevance', #... ranked on relevance
                     textFormat = 'plainText',
                     ).execute()
@@ -110,7 +110,7 @@ def data_one_query(query):
 
 
 df = data_one_query('athletics')
-print (df)
+df.to_csv('testing.csv', index = False)
 '''
 get queries and for each query find the most popular videos and the most popular comments from the most popular videos
 
