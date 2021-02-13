@@ -5,6 +5,7 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 import os
 import pickle
+import pandas as pd
 CLIENT_SECRETS_FILE = "client_secret.json"
 SCOPES = ['https://www.googleapis.com/auth/youtube.force-ssl']
 API_SERVICE_NAME = 'youtube'
@@ -92,6 +93,19 @@ def data_one_query(query):
         video_title_pop.extend([video_title[i]]*len(comments_temp))
         video_desc_pop.extend([video_desc[i]]*len(comments_temp))
     query_pop = [query] * len(video_id_pop)
+    output_dict = {
+        'Query': query_pop,
+        'Channel': channel_pop,
+        'Video Title': video_title_pop,
+        'Video Description': video_desc_pop,
+        'Video ID': video_id_pop,
+        'Comment': comments_pop,
+        'Comment ID': comment_id_pop,
+        'Replies': reply_count_pop,
+        'Likes': like_count_pop,
+        }
+    output_df = pd.DataFrame(output_dict, columns = output_dict.keys())
+    output_df.to_csv(index = False)
 
 
 '''
