@@ -36,8 +36,32 @@ if __name__ == '__main__':
 '''
 os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
 service = get_authenticated_service()
+def data_one_query(query):
+    '''gets the relevant data for one query'''
+    query_results = service.search().list(
+        part = 'snippet',
+        q = query,
+        order = 'viewCount', 
+        maxResults = 20,
+        type = 'video', 
+        relevanceLanguage = 'en',
+        safeSearch = 'moderate',
+        ).execute()
+    video_id = []
+    channel = []
+    video_title = []
+    video_desc = []
+    for item in query_results['items']:
+        video_id.append(item['id']['videoId'])
+        channel.append(item['snippet']['channelTitle'])
+        video_title.append(item['snippet']['title'])
+        video_desc.append(item['snippet']['description'])
+
+
 '''
 get queries and for each query find the most popular videos and the most popular comments from the most popular videos
 
 first focus on getting data of commments, then analyse it later
+
+https://www.pingshiuanchua.com/blog/post/using-youtube-api-to-analyse-youtube-comments-on-python
 '''
