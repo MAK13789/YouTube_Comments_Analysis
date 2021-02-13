@@ -37,12 +37,12 @@ if __name__ == '__main__':
 os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
 service = get_authenticated_service()
 def data_one_query(query):
-    '''gets the relevant data for one query'''
+    '''gets the relevant data for one query (which is a string input to the function)'''
     query_results = service.search().list(
         part = 'snippet',
         q = query,
         order = 'viewCount', 
-        maxResults = 20,
+        maxResults = 30,
         type = 'video', 
         relevanceLanguage = 'en',
         safeSearch = 'moderate',
@@ -56,6 +56,42 @@ def data_one_query(query):
         channel.append(item['snippet']['channelTitle'])
         video_title.append(item['snippet']['title'])
         video_desc.append(item['snippet']['description'])
+    video_id_pop = []
+    channel_pop = []
+    video_title_pop = []
+    video_desc_pop = []
+    comments_pop = []
+    comment_id_pop = []
+    reply_count_pop = []
+    like_count_pop = []
+    from tqdm import tqdm
+    for i, video in enumerate(tqdm(video_id, ncols = 100)):
+        response = service.commentThreads().list(
+                    part = 'snippet',
+                    videoId = video,
+                    maxResults = 100, # Only take top 100 comments...
+                    order = 'relevance', #... ranked on relevance
+                    textFormat = 'plainText',
+                    ).execute()
+        comments_temp = []
+        comment_id_temp = []
+        reply_count_temp = []
+        like_count_temp = []
+        for item in response['items']:
+            comments_temp.append(item['snippet']['topLevelComment']['snippet']['textDisplay'])
+            comment_id_temp.append(item['snippet']['topLevelComment']['id'])
+            reply_count_temp.append(item['snippet']['totalReplyCount'])
+            like_count_temp.append(item['snippet']['topLevelComment']['snippet']['likeCount'])
+        comments_pop.extend(comments_temp)
+        comment_id_pop.extend(comment_id_temp)
+        reply_count_pop.extend(reply_count_temp)
+        like_count_pop.extend(like_count_temp)
+        
+        video_id_pop.extend([video_id[i]]*len(comments_temp))
+        channel_pop.extend([channel[i]]*len(comments_temp))
+        video_title_pop.extend([video_title[i]]*len(comments_temp))
+        video_desc_pop.extend([video_desc[i]]*len(comments_temp))
+    query_pop = [query] * len(video_id_pop)
 
 
 '''
