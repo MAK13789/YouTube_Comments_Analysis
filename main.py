@@ -43,7 +43,7 @@ def data_one_query(query):
         part = 'snippet',
         q = query,
         order = 'viewCount', 
-        maxResults = 30,
+        maxResults = 20,
         type = 'video', 
         relevanceLanguage = 'en',
         safeSearch = 'moderate',
@@ -105,13 +105,19 @@ def data_one_query(query):
         'Likes': like_count_pop,
         }
     output_df = pd.DataFrame(output_dict, columns = output_dict.keys())
-    output_df.to_csv(index = False)
 
 
+df = data_one_query('athletics')
+print (df)
 '''
 get queries and for each query find the most popular videos and the most popular comments from the most popular videos
 
 first focus on getting data of commments, then analyse it later
 
 https://www.pingshiuanchua.com/blog/post/using-youtube-api-to-analyse-youtube-comments-on-python
+
+
+problems: comments disabled!!!!  use try except to fix this
+
+googleapiclient.errors.HttpError: <HttpError 403 when requesting https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet&videoId=yi1KOcy4hK4&maxResults=100&order=relevance&textFormat=plainText&alt=json returned "The video identified by the <code><a href="/youtube/v3/docs/commentThreads/list#videoId">videoId</a></code> parameter has disabled comments.". Details: "The video identified by the <code><a href="/youtube/v3/docs/commentThreads/list#videoId">videoId</a></code> parameter has disabled comments.">
 '''
