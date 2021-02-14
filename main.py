@@ -1,5 +1,6 @@
 import pandas as pd
 import os
+import csv
 import google.oauth2.credentials
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
@@ -107,6 +108,17 @@ def data_one_query(query):
         }
     output_df = pd.DataFrame(output_dict, columns = output_dict.keys())
     return output_df
+def get_data():
+    '''loops through the queries, and creates one big dataset which contains the data for all the queries'''
+    #use tdqm for looping over queries too
+    queries = []
+    with open('query_data.csv', 'r') as file:
+        reader = csv.reader(file)
+        for row in reader:
+            queries.append(row[0])
+    for query in tqdm(queries):  #maybe should include a ncols parameter
+
+
 
 
 df = data_one_query('athletics')
