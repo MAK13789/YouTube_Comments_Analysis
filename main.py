@@ -116,13 +116,24 @@ def get_data():
         reader = csv.reader(file)
         for row in reader:
             queries.append(row[0])
+    first = queries[0]
+    df = data_one_query(first)
     for query in tqdm(queries):  #maybe should include a ncols parameter
+        if query != first:
+            df_new = data_one_query(query)
+            df.append(df_new, ignore_index = True)
 
 
 
 
+'''
 df = data_one_query('athletics')
 df.to_csv('testing.csv', index = False)
+'''
+
+
+
+
 '''
 get queries and for each query find the most popular videos and the most popular comments from the most popular videos
 
