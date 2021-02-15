@@ -145,7 +145,7 @@ dataset.to_csv('dataset.csv', index = False)
 ###########################################            RUNNING THE CODE FOR DAY 1 (first 80 queries)          ###############################################
 dataset_1 = get_data('queries_1.csv')
 dataset_1.to_csv('dataset_1.csv', index = False)
-
+'''hopefully empty line at the end won't cause any issues?'''
 
 '''
 df = data_one_query('athletics')
