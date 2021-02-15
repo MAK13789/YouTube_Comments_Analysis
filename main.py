@@ -128,7 +128,7 @@ def get_data():
 dataset = get_data()
 dataset.to_csv('dataset.csv', index = False)
 
-
+#NEED TO ADD TRY EXCEPT FOR DISABLED COMMENTS
 
 
 '''
