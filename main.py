@@ -7,6 +7,7 @@ from googleapiclient.errors import HttpError
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 import pickle
+from tqdm import tqdm
 CLIENT_SECRETS_FILE = "client_secret.json"
 SCOPES = ['https://www.googleapis.com/auth/youtube.force-ssl']
 API_SERVICE_NAME = 'youtube'
@@ -67,15 +68,17 @@ def data_one_query(query):
     comment_id_pop = []
     reply_count_pop = []
     like_count_pop = []
-    from tqdm import tqdm
     for i, video in enumerate(tqdm(video_id, ncols = 100)):
-        response = service.commentThreads().list(
-                    part = 'snippet',
-                    videoId = video,
-                    maxResults = 20, # Only take top 20 comments...
-                    order = 'relevance', #... ranked on relevance
-                    textFormat = 'plainText',
-                    ).execute()
+        try: 
+            response = service.commentThreads().list(
+                        part = 'snippet',
+                        videoId = video,
+                        maxResults = 20, # Only take top 20 comments...
+                        order = 'relevance', #... ranked on relevance
+                        textFormat = 'plainText',
+                        ).execute()
+        except:
+            continue
         comments_temp = []
         comment_id_temp = []
         reply_count_temp = []
@@ -108,6 +111,10 @@ def data_one_query(query):
         }
     output_df = pd.DataFrame(output_dict, columns = output_dict.keys())
     return output_df
+
+
+
+
 def get_data():
     '''loops through the queries, and creates one big dataset which contains the data for all the queries'''
     #use tdqm for looping over queries too
