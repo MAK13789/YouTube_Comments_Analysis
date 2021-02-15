@@ -115,11 +115,11 @@ def data_one_query(query):
 
 
 
-def get_data():
-    '''loops through the queries, and creates one big dataset which contains the data for all the queries'''
+def get_data(filename):
+    '''loops through a file containing the queries, and creates one big dataset which contains the data for all the queries'''
     #use tdqm for looping over queries too
     queries = []
-    with open('query_data.csv', 'r') as file:
+    with open(filename, 'r') as file:
         reader = csv.reader(file)
         for row in reader:
             queries.append(row[0])
@@ -127,15 +127,24 @@ def get_data():
     df = data_one_query(first)
     for query in tqdm(queries):  #maybe should include a ncols parameter
         if query != first:
-            df_new = data_one_query(query)
-            df.append(df_new, ignore_index = True)
+            try:
+                df_new = data_one_query(query)
+                df.append(df_new, ignore_index = True)
+            except: 
+                return df
+            '''
+            as now i am splitting up my queries to sets of 80 queries, this try except is such that even if within 80 queries the quota is exceeded, the data for that day 
+            is not wasted as the incomplete dataframe is still returned)
+            '''
     return df
 
-
+'''
 dataset = get_data()
 dataset.to_csv('dataset.csv', index = False)
-
-#NEED TO ADD TRY EXCEPT FOR DISABLED COMMENTS
+'''
+###########################################            RUNNING THE CODE FOR DAY 1 (first 80 queries)          ###############################################
+dataset_1 = get_data('queries_1.csv')
+dataset_1.to_csv('dataset_1.csv', index = False)
 
 
 '''
