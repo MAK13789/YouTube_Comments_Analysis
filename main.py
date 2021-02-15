@@ -122,6 +122,11 @@ def get_data():
         if query != first:
             df_new = data_one_query(query)
             df.append(df_new, ignore_index = True)
+    return df
+
+
+dataset = get_data()
+dataset.to_csv('dataset.csv', index = False)
 
 
 
