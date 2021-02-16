@@ -87,7 +87,7 @@ def data_one_query(query):
             comments_temp.append(item['snippet']['topLevelComment']['snippet']['textDisplay'])
             comment_id_temp.append(item['snippet']['topLevelComment']['id'])
             reply_count_temp.append(item['snippet']['totalReplyCount'])
-            like_count_temp.append(item['snippet']['topLevelComment']['snippet']['likeCount'])
+            like_count_temp.append(item['snippet']['topLevelComment']['snippet']['likeCount'])  #this is the syntax for getting the number of likes I  think
         comments_pop.extend(comments_temp)
         comment_id_pop.extend(comment_id_temp)
         reply_count_pop.extend(reply_count_temp)
@@ -117,7 +117,6 @@ def data_one_query(query):
 
 def get_data(filename):
     '''loops through a file containing the queries, and creates one big dataset which contains the data for all the queries'''
-    #use tdqm for looping over queries too
     queries = []
     with open(filename, 'r') as file:
         reader = csv.reader(file)
@@ -125,26 +124,39 @@ def get_data(filename):
             queries.append(row[0])
     first = queries[0]
     df = data_one_query(first)
+
+    
+    name = 'test_' + first + '.csv'
+    
+    df.to_csv(name, index = False)
+
     for query in tqdm(queries):  #maybe should include a ncols parameter
         if query != first:
             try:
                 df_new = data_one_query(query)
+
+
+                test_name = 'test_' + query + '.csv'
+                df_new.to_csv(test_name, index = False)
+
+
+
                 df.append(df_new, ignore_index = True)
             except: 
                 return df
-            '''
-            as now i am splitting up my queries to sets of 80 queries, this try except is such that even if within 80 queries the quota is exceeded, the data for that day 
-            is not wasted as the incomplete dataframe is still returned)
-            '''
     return df
 
-'''
-dataset = get_data()
-dataset.to_csv('dataset.csv', index = False)
-'''
 ###########################################            RUNNING THE CODE FOR DAY 1 (first 80 queries)          ###############################################
 dataset_1 = get_data('queries_1.csv')
 dataset_1.to_csv('dataset_1.csv', index = False)
+
+
+
+
+
+
+
+
 '''hopefully empty line at the end won't cause any issues?'''
 
 '''
