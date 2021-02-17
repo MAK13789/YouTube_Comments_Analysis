@@ -125,23 +125,25 @@ def get_data(filename):
     first = queries[0]
     df = data_one_query(first)
 
-    
+    '''
     name = 'test_' + first + '.csv'
     
     df.to_csv(name, index = False)
+
+    '''
 
     for query in tqdm(queries):  #maybe should include a ncols parameter
         if query != first:
             try:
                 df_new = data_one_query(query)
 
-
+                '''
                 test_name = 'test_' + query + '.csv'
                 df_new.to_csv(test_name, index = False)
+                '''
 
 
-
-                df.append(df_new, ignore_index = True)
+                df = df.append(df_new, ignore_index = True)
             except: 
                 return df
     return df
@@ -150,7 +152,13 @@ def get_data(filename):
 dataset_1 = get_data('queries_1.csv')
 dataset_1.to_csv('dataset_1.csv', index = False)
 
+'''
+so it does work properly, but for some reason has a problem with appending the dataframe :thonk:
 
+apparently instead of df.append(df_new, ignore_index = True) it should be df = df.append(df_new, ignore_index = True)
+
+reminds me of the mistake I made in the esc180 final exam :ummMm:
+'''
 
 
 
@@ -174,8 +182,4 @@ first focus on getting data of commments, then analyse it later
 
 https://www.pingshiuanchua.com/blog/post/using-youtube-api-to-analyse-youtube-comments-on-python
 
-
-problems: comments disabled!!!!  use try except to fix this
-
-googleapiclient.errors.HttpError: <HttpError 403 when requesting https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet&videoId=yi1KOcy4hK4&maxResults=100&order=relevance&textFormat=plainText&alt=json returned "The video identified by the <code><a href="/youtube/v3/docs/commentThreads/list#videoId">videoId</a></code> parameter has disabled comments.". Details: "The video identified by the <code><a href="/youtube/v3/docs/commentThreads/list#videoId">videoId</a></code> parameter has disabled comments.">
 '''
