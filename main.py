@@ -152,13 +152,6 @@ def get_data(filename):
 dataset_1 = get_data('queries_1.csv')
 dataset_1.to_csv('dataset_1.csv', index = False)
 
-'''
-so it does work properly, but for some reason has a problem with appending the dataframe :thonk:
-
-apparently instead of df.append(df_new, ignore_index = True) it should be df = df.append(df_new, ignore_index = True)
-
-reminds me of the mistake I made in the esc180 final exam :ummMm:
-'''
 
 
 
