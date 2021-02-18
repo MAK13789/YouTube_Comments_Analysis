@@ -132,7 +132,7 @@ def get_data(filename):
 
     '''
 
-    for query in tqdm(queries):  #maybe should include a ncols parameter
+    for query in tqdm(queries, ncols = 100):  #maybe should include a ncols parameter
         if query != first:
             try:
                 df_new = data_one_query(query)
@@ -148,9 +148,9 @@ def get_data(filename):
                 return df
     return df
 
-###########################################            RUNNING THE CODE FOR DAY 2 (second 80 queries)          ###############################################
-dataset_1 = get_data('queries_2.csv')
-dataset_1.to_csv('dataset_2.csv', index = False)
+###########################################            RUNNING THE CODE FOR DAY 3 (third 80 queries)          ###############################################
+dataset_3 = get_data('queries_3.csv')
+dataset_3.to_csv('dataset_3.csv', index = False)
 
 
 
