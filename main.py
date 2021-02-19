@@ -136,12 +136,11 @@ def get_data(filename):
         if query != first:
             try:
                 df_new = data_one_query(query)
-
+                
                 '''
                 test_name = 'test_' + query + '.csv'
                 df_new.to_csv(test_name, index = False)
                 '''
-
 
                 df = df.append(df_new, ignore_index = True)
             except: 
