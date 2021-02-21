@@ -147,31 +147,6 @@ def get_data(filename):
                 return df
     return df
 
-###########################################            RUNNING THE CODE FOR DAY 4 (fourth 80 queries)          ###############################################
-dataset_4 = get_data('queries_4.csv')
-dataset_4.to_csv('dataset_4.csv', index = False)
-
-
-
-
-
-
-
-'''hopefully empty line at the end won't cause any issues?'''
-
-'''
-df = data_one_query('athletics')
-df.to_csv('testing.csv', index = False)
-'''
-
-
-
-
-'''
-get queries and for each query find the most popular videos and the most popular comments from the most popular videos
-
-first focus on getting data of commments, then analyse it later
-
-https://www.pingshiuanchua.com/blog/post/using-youtube-api-to-analyse-youtube-comments-on-python
-
-'''
+###########################################            RUNNING THE CODE FOR DAY 5 (fifth 80 queries)          ###############################################
+dataset_5 = get_data('queries_5.csv')
+dataset_5.to_csv('dataset_5.csv', index = False)
