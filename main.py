@@ -147,6 +147,6 @@ def get_data(filename):
                 return df
     return df
 
-###########################################            RUNNING THE CODE FOR DAY 5 (fifth 80 queries)          ###############################################
-dataset_5 = get_data('queries_5.csv')
-dataset_5.to_csv('dataset_5.csv', index = False)
+###########################################            RUNNING THE CODE FOR DAY 6 (sixth 80 queries)          ###############################################
+dataset_6 = get_data('queries_6.csv')
+dataset_6.to_csv('dataset_6.csv', index = False)
