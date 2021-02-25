@@ -114,7 +114,7 @@ def get_data(filename):
             queries.append(row[0])
     first = queries[0]
     df = data_one_query(first)
-    for query in tqdm(queries, ncols = 100):  #maybe should include a ncols parameter
+    for query in tqdm(queries, ncols = 100): 
         if query != first:
             try:
                 df_new = data_one_query(query)
