@@ -32,12 +32,6 @@ def get_authenticated_service():
             pickle.dump(credentials, token)
  
     return build(API_SERVICE_NAME, API_VERSION, credentials = credentials)
-
-'''
-if __name__ == '__main__':
-    os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
-    service = get_authenticated_service()
-'''
 os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
 service = get_authenticated_service()
 def data_one_query(query):
@@ -111,10 +105,6 @@ def data_one_query(query):
         }
     output_df = pd.DataFrame(output_dict, columns = output_dict.keys())
     return output_df
-
-
-
-
 def get_data(filename):
     '''loops through a file containing the queries, and creates one big dataset which contains the data for all the queries'''
     queries = []
@@ -124,29 +114,11 @@ def get_data(filename):
             queries.append(row[0])
     first = queries[0]
     df = data_one_query(first)
-
-    '''
-    name = 'test_' + first + '.csv'
-    
-    df.to_csv(name, index = False)
-
-    '''
-
     for query in tqdm(queries, ncols = 100):  #maybe should include a ncols parameter
         if query != first:
             try:
                 df_new = data_one_query(query)
-                
-                '''
-                test_name = 'test_' + query + '.csv'
-                df_new.to_csv(test_name, index = False)
-                '''
-
                 df = df.append(df_new, ignore_index = True)
             except: 
                 return df
     return df
-
-###########################################            RUNNING THE CODE FOR DAY 7 (seventh 80 queries)          ###############################################
-dataset_7 = get_data('queries_7.csv')
-dataset_7.to_csv('dataset_7.csv', index = False)
