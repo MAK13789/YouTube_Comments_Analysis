@@ -50,3 +50,8 @@ def tokenize(data):
     data['Tokenized Comment'] = all_tokenized
 
 
+
+
+
+
+#https://www.analyticsvidhya.com/blog/2018/02/the-different-methods-deal-text-data-predictive-python/
