@@ -9,5 +9,7 @@ def plain_sentiment(data):
     '''takes in a dataset in the form of dataset.csv and for each comment adds the basic sentiment without preprocessing for that comment in a new column with the name of sentiment'''
     data["sentiment"] = ""
     for index, row in tqdm(data.iterrows(), ncols=100):
+        print("debug")
         data.at[index, 'sentiment'] = TextBlob(data.iloc[data]['comment']).sentiment
     data.to_csv('dataset_basic_sentiment.csv')
+plain_sentiment(dataset)
