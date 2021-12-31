@@ -23,4 +23,4 @@ def plain_sentiment(data):
     data["Sentiment"] = sentiments
     return data
 updated_dataset = plain_sentiment(dataset)
-print (updated_dataset)
+updated_dataset.to_csv('plain_sentiment.csv')
