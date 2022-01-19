@@ -11,7 +11,14 @@ sentiment_column = dataset["Sentiment"]
 sentiment_complete = []
 for j in sentiment_column:
     sentiment_complete.append(j)
-print (likes_complete)
-print (sentiment_complete)
-print (len(likes_complete))
-print (len(sentiment_complete))
+likes = []
+sentiment = []
+for k in range(len(sentiment_complete)):
+    if sentiment_complete[k] != '[0.0, 0.0]':
+        likes.append(likes_complete[k])
+        sentiment.append(sentiment_complete[k])
+print (likes)
+print (sentiment)
+print (len(likes))
+print (len(sentiment))
+#print (type(sentiment_complete[0]))
