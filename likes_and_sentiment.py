@@ -14,4 +14,4 @@ for j in sentiment_column:
 print (likes_complete)
 print (sentiment_complete)
 print (len(likes_complete))
-print (len(sentiment_complete)
+print (len(sentiment_complete))
