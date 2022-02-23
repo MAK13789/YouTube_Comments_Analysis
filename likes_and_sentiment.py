@@ -18,7 +18,14 @@ for k in range(len(sentiment_complete)):
     if sentiment_complete[k] != '[0.0, 0.0]':
         likes.append(likes_complete[k])
         sentiment.append(literal_eval(sentiment_complete[k]))
-print (likes)
-print (sentiment)
-print (len(likes))
-print (len(sentiment))
+#print (likes)
+#print (sentiment)
+#print (len(likes))
+#print (len(sentiment))
+
+
+'''first, analyzing the relationship between likes and sentiment using statistical
+methods, plots, correlations, etc.'''
+
+
+'''first, using the basic cnn to predict the number of likes based on the sentiment:'''
